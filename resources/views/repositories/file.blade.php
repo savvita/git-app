@@ -35,7 +35,7 @@
     <div class="card">
         <div class="card-header">
             <p>Status: {{$file->status}}</p>
-            <p>Changes: {{$file->changes}} (added: {{$file->additions}}, deleted: {{$file->deletions}})</p>
+{{--            <p>Changes: {{$file->changes}} (added: {{$file->additions}}, deleted: {{$file->deletions}})</p>--}}
         </div>
         <div class="card-body">
             <pre data-patch="{{$file->patch}}">

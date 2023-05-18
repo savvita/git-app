@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use mysql_xdevapi\Exception;
 
 class RepoController extends Controller
 {
@@ -15,7 +16,15 @@ class RepoController extends Controller
             'username' => 'required'
         ]);
 
-        $repo = GitController::getRepositories($request->input('username'));
+        try {
+            $repo = GitController::getRepositories($request->input('username'));
+        } catch(\Exception) {
+            return view('error')->with('error', 'Not found');
+        }
+
+        if(!$repo) {
+            return view('error')->with('error', 'Not found');
+        }
 
         return view('repositories.list')->with('data', ['username' => $request->input('username'), 'repo' => $repo]);
     }
